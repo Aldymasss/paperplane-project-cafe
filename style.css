@@ -551,6 +551,98 @@ body.dark-mode .projects-slider {
     min-width: 85vw;
     max-width: 95vw;
   }
+  
+  /* Responsive image adjustments for mobile */
+  .project-card img, .menu-item-img, .project-card img[style*="height:150px"] {
+    height: 140px !important;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0 !important;
+  }
+  
+  .project-card h4, .project-card h3 {
+    font-size: 1.1rem;
+    margin: 12px 12px 8px 12px;
+  }
+  
+  .project-card p {
+    font-size: 0.9rem;
+    margin: 0 12px 12px 12px;
+    line-height: 1.4;
+  }
+  
+  .project-card .btn {
+    font-size: 1rem;
+    padding: 8px 0;
+    margin: 0.8rem auto 0 auto;
+  }
+}
+
+/* Additional responsive breakpoint for smaller phones */
+@media (max-width: 480px) {
+  .project-card img, .menu-item-img, .project-card img[style*="height:150px"] {
+    height: 120px !important;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0 !important;
+  }
+  
+  .project-card {
+    padding-bottom: 1rem;
+    gap: 8px;
+  }
+  
+  .project-card h4, .project-card h3 {
+    font-size: 1rem;
+    margin: 10px 10px 6px 10px;
+  }
+  
+  .project-card p {
+    font-size: 0.85rem;
+    margin: 0 10px 10px 10px;
+    line-height: 1.3;
+  }
+}
+
+/* Tablet landscape and desktop responsiveness */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .project-card img, .menu-item-img, .project-card img[style*="height:150px"] {
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1201px) {
+  .project-card img, .menu-item-img, .project-card img[style*="height:150px"] {
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+/* Very small phones (portrait) */
+@media (max-width: 360px) {
+  .project-card img, .menu-item-img, .project-card img[style*="height:150px"] {
+    height: 100px !important;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0 !important;
+  }
+  
+  .project-card {
+    padding-bottom: 0.8rem;
+    gap: 6px;
+  }
+  
+  .project-card h4, .project-card h3 {
+    font-size: 0.9rem;
+    margin: 8px 8px 4px 8px;
+  }
+  
+  .project-card p {
+    font-size: 0.8rem;
+    margin: 0 8px 8px 8px;
+    line-height: 1.2;
+  }
 }
 .project-card {
     display: flex;
@@ -572,10 +664,28 @@ body.dark-mode .projects-slider {
 .project-card:hover {
     transform: translateY(-8px) scale(1.03);
 }
-.project-card img {
+.project-card img, .menu-item-img {
     width: 100%;
     height: 180px;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Force override untuk gambar dengan inline styles */
+.project-card img[style*="height:150px"] {
+    height: 180px !important;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* Universal responsive images - override semua inline styles */
+.project-card img,
+.recommendation-card img,
+.menu-item-img,
+img[alt="Menu Preview"] {
+    width: 100% !important;
+    object-fit: cover !important;
+    border-radius: 12px 12px 0 0 !important;
+    display: block;
 }
 .project-card h3 {
     margin: 16px 16px 8px 16px;
