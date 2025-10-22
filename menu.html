@@ -317,11 +317,8 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
     </script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
 <script>
-  
-  // 3. INI ADALAH KONFIGURASI DARI SCREENSHOT ANDA
-  // (Data ini aman untuk ditaruh di frontend)
+  // 3. Konfigurasi Firebase Anda (dari screenshot Anda sebelumnya)
   const firebaseConfig = {
     apiKey: "AIzaSyCrFMoYTvNwahAaxc61VJwgssUoqdIOKI8",
     authDomain: "paperplane-project.firebaseapp.com",
@@ -340,7 +337,6 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
     try {
       console.log("Mengambil menu dari Firestore...");
       
-      // 6. Ambil data dari koleksi 'menu'
       const snapshot = await db.collection('menu').get();
       
       if (snapshot.empty) {
@@ -348,69 +344,45 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         return;
       }
 
-      // Mengorganisir menu berdasarkan kategori
-      const menuByCategory = {};
-      
-      // 7. Mengelompokkan menu berdasarkan kategori
-      snapshot.forEach(doc => {
-        const item = doc.data();
-        const kategori = item.kategori || 'Uncategorized';
-        
-        if (!menuByCategory[kategori]) {
-          menuByCategory[kategori] = [];
-        }
-        
-        menuByCategory[kategori].push({
-          id: doc.id,
-          ...item
-        });
-        
-        // Cek di console apakah data masuk
-        console.log(doc.id, " => ", item);
-      });
-      
-      // 8. Struktur HTML asli dipertahankan
-      // TIDAK mengganti semua HTML, tapi mengisi recommendations-container
-      const recommendationsContainer = document.getElementById('recommendations-container');
-      
-      // Menampilkan Recommendations (6 item teratas)
-      const allItems = Object.values(menuByCategory).flat();
-      const recommendations = allItems.slice(0, 6); // Ambil 6 item pertama sebagai rekomendasi
-      
-      // Bersihkan container rekomendasi
-      if (recommendationsContainer) {
-        recommendationsContainer.innerHTML = '';
-        
-        // Tambahkan semua rekomendasi
-        recommendations.forEach(item => {
-          const menuHTML = `
-            <div class="project-card">
-              <img src="${item.gambarURL || 'img/food.jpg'}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
-              <h4>${item.nama}</h4>
-              <p>${item.deskripsi || ''}</p>
-              <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
-              <button class="btn add-to-cart" onclick="addToCart('${item.id}', '${item.nama}', ${item.harga})">
-                Add to Cart
-              </button>
-            </div>
-          `;
-          
-          recommendationsContainer.innerHTML += menuHTML;
-        });
+      // 6. Cari "wadah" menu Anda di HTML
+      const menuContainer = document.getElementById('menu-container'); 
+      if (!menuContainer) {
+          console.error('ERROR: Wadah <div id="menu-container"> tidak ditemukan!');
+          return;
       }
-      
-      // 9. Re-initialize sliders after adding content
-      setTimeout(() => {
-        createSectionSliderById('slider-recommendations');
-      }, 300);
+      menuContainer.innerHTML = ''; // Kosongkan wadah
+
+      // 7. Loop setiap dokumen (item menu) dari database
+      snapshot.forEach(doc => {
+        const item = doc.data(); 
+        
+        // 8. Buat HTML yang rapi untuk setiap item menu
+        const menuHTML = `
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="${item.gambarURL}" class="card-img-top" alt="${item.nama}" style="height: 200px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${item.nama}</h5>
+                <p class="card-text">Rp ${item.harga.toLocaleString('id-ID')}</p>
+                
+                <button class="btn btn-primary mt-auto" onclick="addToCart('${doc.id}', '${item.nama}', ${item.harga})">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // 9. Masukkan HTML yang baru dibuat ke dalam wadah
+        menuContainer.innerHTML += menuHTML;
+      });
 
     } catch (error) {
       console.error("Error mengambil menu: ", error);
     }
   };
 
-  // 11. Fungsi untuk tombol "Add to Cart" (LANGKAH SELANJUTNYA)
-  //     Kita buat kerangkanya dulu di sini
+  // 10. Fungsi untuk tombol "Add to Cart" (LANGKAH SELANJUTNYA)
   function addToCart(id, nama, harga) {
     console.log(`Menambahkan ke keranjang: ${nama} (ID: ${id}) dengan harga ${harga}`);
     // TODO: Logika keranjang belanja Anda akan ada di sini
