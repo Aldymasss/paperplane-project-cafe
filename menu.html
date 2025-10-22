@@ -318,8 +318,10 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
     </script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
 <script>
-  // 3. Konfigurasi Firebase Anda (dari screenshot Anda sebelumnya)
+  
+  // 3. Konfigurasi Firebase Anda
   const firebaseConfig = {
     apiKey: "AIzaSyCrFMoYTvNwahAaxc61VJwgssUoqdIOKI8",
     authDomain: "paperplane-project.firebaseapp.com",
@@ -357,7 +359,8 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
       snapshot.forEach(doc => {
         const item = doc.data(); 
         
-        // 8. Buat HTML yang rapi untuk setiap item menu
+        // 8. Buat HTML yang RAPI (dengan class Bootstrap)
+        //    INI AKAN MEMPERBAIKI TAMPILAN ANDA
         const menuHTML = `
           <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
@@ -365,7 +368,7 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">${item.nama}</h5>
                 <p class="card-text">Rp ${item.harga.toLocaleString('id-ID')}</p>
-
+                
                 <button class="btn btn-primary mt-auto" onclick="addToCart('${doc.id}', '${item.nama}', ${item.harga})">
                   Add to Cart
                 </button>
