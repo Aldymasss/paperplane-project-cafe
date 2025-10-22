@@ -511,133 +511,85 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
             setTimeout(fixMobileImages, 300);
         });
     </script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
 <script>
-        const firebaseConfig = {
-    apiKey: "AIzaSyCnFMoYTvNwahAAxc61YjwqssUoqdIOKi0",
+  
+  // 3. INI ADALAH KONFIGURASI DARI SCREENSHOT ANDA
+  // (Data ini aman untuk ditaruh di frontend)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCrFMoYTvNwahAaxc61VJwgssUoqdIOKI8",
     authDomain: "paperplane-project.firebaseapp.com",
     projectId: "paperplane-project",
     storageBucket: "paperplane-project.firebasestorage.app",
     messagingSenderId: "337727836157",
     appId: "1:337727836157:web:0ea9df024c7a76f53a5394"
-    };
-        // 2. Inisialisasi Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+  };
 
-    // 3. Fungsi untuk mengambil data menu saat halaman dimuat
-    window.onload = async function() {
-  try {
-    console.log("Mengambil menu dari Firestore...");
+  // 4. Inisialisasi Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-    // 4. Ambil data dari koleksi 'menu'
-    const snapshot = await db.collection('menu').get();
+  // 5. Fungsi untuk mengambil data menu saat halaman dimuat
+  window.onload = async function() {
+    try {
+      console.log("Mengambil menu dari Firestore...");
+      
+      // 6. Ambil data dari koleksi 'menu'
+      const snapshot = await db.collection('menu').get();
+      
+      if (snapshot.empty) {
+        console.log('Tidak ada menu yang ditemukan di database.');
+        return;
+      }
 
-    if (snapshot.empty) {
-      console.log('Tidak ada menu yang ditemukan.');
-      return;
-    }
+      // 7. Cari "wadah" menu Anda di HTML
+      //    PASTIKAN Anda punya <div id="menu-container"> di HTML Anda
+      const menuContainer = document.getElementById('menu-container'); 
+      menuContainer.innerHTML = ''; // Kosongkan wadah
 
-    // 5. Siapkan tempat untuk menaruh HTML
-    // PENTING: Anda harus membuat <div> dengan id="menu-container" di HTML Anda
-    const menuContainer = document.getElementById('menu-container'); 
-    menuContainer.innerHTML = ''; // Kosongkan container
-
-    // 6. Loop setiap dokumen (item menu) dari database
-    snapshot.forEach(doc => {
-      const item = doc.data(); // Ini adalah data (nama, harga, gambarURL)
-
-      // 7. Buat HTML untuk setiap item menu
-      // (Anda HARUS menyesuaikan HTML ini agar SAMA PERSIS dengan desain Anda)
-      const menuHTML = `
-        <div class="col-md-4 menu-item">
-          <div class="card">
-            <img src="${item.gambarURL}" class="card-img-top" alt="${item.nama}">
-            <div class="card-body">
-              <h5 class="card-title">${item.nama}</h5>
-              <p class="card-text">Harga: Rp ${item.harga.toLocaleString('id-ID')}</p>
-              <button class="btn btn-primary">Add to Cart</button>
+      // 8. Loop setiap dokumen (item menu) dari database
+      snapshot.forEach(doc => {
+        const item = doc.data(); // Ini adalah data (nama, harga, gambarURL)
+        
+        // Cek di console apakah data masuk
+        console.log(doc.id, " => ", item); 
+        
+        // 9. Buat HTML untuk setiap item menu
+        //    PENTING: Anda HARUS menyesuaikan HTML di bawah ini
+        //    agar SAMA PERSIS dengan desain card menu Anda di HTML statis
+        const menuHTML = `
+          <div class="col-md-4 menu-item"> 
+            <div class="card shadow-sm">
+              <img src="${item.gambarURL}" class="card-img-top" alt="${item.nama}">
+              <div class="card-body">
+                <h5 class="card-title">${item.nama}</h5>
+                <p class="card-text">Rp ${item.harga.toLocaleString('id-ID')}</p>
+                
+                <button class="btn btn-primary" onclick="addToCart('${doc.id}', '${item.nama}', ${item.harga})">
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `;
+        `;
+        
+        // 10. Masukkan HTML yang baru dibuat ke dalam wadah
+        menuContainer.innerHTML += menuHTML;
+      });
 
-      // 8. Masukkan HTML yang baru dibuat ke dalam container
-      menuContainer.innerHTML += menuHTML;
-    });
+    } catch (error) {
+      console.error("Error mengambil menu: ", error);
+    }
+  };
 
-  } catch (error) {
-    console.error("Error mengambil menu: ", error);
+  // 11. Fungsi untuk tombol "Add to Cart" (LANGKAH SELANJUTNYA)
+  //     Kita buat kerangkanya dulu di sini
+  function addToCart(id, nama, harga) {
+    console.log(`Menambahkan ke keranjang: ${nama} (ID: ${id}) dengan harga ${harga}`);
+    // TODO: Logika keranjang belanja Anda akan ada di sini
   }
-};
-</script>
-<!-- Renderer: populate BEVERAGES from local JSON (data/menu.json) -->
-<script>
-  (function(){
-    async function renderBeverages() {
-      try {
-        const res = await fetch('data/menu.json', {cache: 'no-store'});
-        if (!res.ok) throw new Error('Failed to load menu.json');
-        const data = await res.json();
-
-        // Group items by kategori for beverages only
-        const beveragesContainer = document.getElementById('beverages-container');
-        beveragesContainer.innerHTML = '';
-        const beverages = data.filter(i => {
-          const k = (i.kategori || '').toLowerCase();
-          return ['hot','iced tea','iced coffee','shakes','mocktail','ice cream','others','bottle 1000ml'].includes(k) || k.includes('coffee') || k.includes('shake') || k.includes('tea') || k.includes('bottle');
-        });
-
-        const groups = beverages.reduce((acc, item) => {
-          const key = item.kategori || 'Uncategorized';
-          if (!acc[key]) acc[key] = [];
-          acc[key].push(item);
-          return acc;
-        }, {});
-
-        Object.keys(groups).forEach((category, idx) => {
-          const catId = 'slider-beverages-' + category.toLowerCase().replace(/\s+/g,'-');
-          const section = document.createElement('div');
-          section.innerHTML = `
-            <h3 style="text-align:center;">${category.toUpperCase()}</h3>
-            <div class="projects-slider" id="${catId}">
-              <button class="slider-btn prev" aria-label="Sebelumnya"><i class="fa fa-chevron-left"></i></button>
-              <div class="projects-grid"></div>
-              <button class="slider-btn next" aria-label="Berikutnya"><i class="fa fa-chevron-right"></i></button>
-            </div>`;
-
-          const grid = section.querySelector('.projects-grid');
-          groups[category].forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'project-card';
-            card.innerHTML = `
-              <img src="${item.gambarURL || 'img/food.jpg'}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
-              <h4>${item.nama}</h4>
-              <p>${item.keterangan || ''}</p>
-              <span class="btn">Rp ${Number(item.harga).toLocaleString('id-ID')}</span>`;
-            grid.appendChild(card);
-          });
-
-          beveragesContainer.appendChild(section);
-
-          // initialize slider for this new section
-          setTimeout(() => createSectionSliderById(catId), 50);
-        });
-
-        // ensure mobile image fixes run after render
-        setTimeout(() => { if (typeof fixMobileImages === 'function') fixMobileImages(); }, 200);
-      } catch (err) {
-        console.error('Renderer error:', err);
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderBeverages);
-    } else {
-      renderBeverages();
-    }
-  })();
 </script>
 </body>
 </html>
