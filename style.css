@@ -7,6 +7,13 @@ body {
     box-sizing: border-box;
 }
 
+/* Memastikan gambar dapat dimuat dengan baik di semua device */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 :root {
     --primary-color: #5C694B;
     --background-light: #fff;
@@ -447,7 +454,7 @@ nav#navbar, nav.navibar {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #5C694B;
-    text-align: center !important; /* Memastikan selalu tengah */
+    text-align: center;
     margin-top: 3rem;
 }
 .menu-category h3 {
@@ -482,7 +489,6 @@ body.dark-mode .projects-slider {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* Untuk scrolling halus di iOS */
   scrollbar-width: none; /* Menyembunyikan scrollbar di Firefox */
-  padding: 0 1rem; /* Tambahan padding untuk mobile */
 }
 .projects-slider .projects-grid::-webkit-scrollbar {
   display: none; /* Menyembunyikan scrollbar di Chrome/Safari */
@@ -490,12 +496,6 @@ body.dark-mode .projects-slider {
 
 .projects-slider .projects-grid.active {
   cursor: grabbing;
-}
-
-/* Container untuk gambar yang lebih baik */
-.project-card {
-  overflow: hidden; /* Mencegah gambar keluar dari container */
-  position: relative;
 }
 
 .projects-slider .project-card {
@@ -553,27 +553,10 @@ body.dark-mode .projects-slider {
 @media (max-width: 700px) {
   .projects-slider {
     padding: 0 0.5rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
   }
   .projects-slider .project-card {
     min-width: 85vw;
-    max-width: 90vw;
-    flex: 0 0 auto;
-  }
-  
-  /* Perbaiki grid untuk mobile */
-  .projects-grid {
-    gap: 0.8rem;
-    padding: 0 0.5rem;
-  }
-  
-  /* Styling tombol slider untuk mobile */
-  .slider-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.2rem;
-    opacity: 0.9;
+    max-width: 95vw;
   }
 }
 .project-card {
@@ -598,33 +581,40 @@ body.dark-mode .projects-slider {
 }
 .project-card img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
-    object-position: center 30%; /* Adjusted to focus more on the center-top area where food/drink details are usually shown */
-    background-color: #f0f2f5; /* Slightly darker background to enhance AI image contrast */
+    background-color: #f8f9fa;
     border-radius: 12px 12px 0 0;
-    transition: transform 0.3s ease;
-    filter: contrast(1.05) saturate(1.1); /* Slight enhancement to make AI images more vibrant */
+    display: block;
+    max-width: 100%;
 }
 
 /* Styling khusus untuk gambar menu */
 .menu-image {
     width: 100% !important;
+    height: 150px !important;
     border-radius: 12px 12px 0 0 !important;
     object-fit: cover !important;
-    object-position: center 25% !important; /* Focus more on the top portion of food/beverages */
-    background-color: #f0f2f5 !important; /* Slightly darker background */
-    transition: transform 0.3s ease, filter 0.3s ease !important;
-    filter: contrast(1.05) saturate(1.1) brightness(1.02) !important; /* Enhance AI images */
-    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.05) !important; /* Subtle inner shadow at bottom */
+    background-color: #f8f9fa !important;
+    display: block !important;
+    max-width: 100% !important;
 }
 
-/* Hover effect untuk gambar */
-.project-card:hover img,
-.project-card:hover .menu-image {
-    transform: scale(1.05);
-    filter: contrast(1.08) saturate(1.15) brightness(1.03) !important; /* Enhanced effect for AI images */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Add depth on hover */
+/* Override inline styles untuk mobile compatibility */
+.project-card img[style] {
+    width: 100% !important;
+    height: 150px !important;
+    border-radius: 12px 12px 0 0 !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Fallback untuk gambar yang gagal load */
+.project-card img {
+    background-image: url('img/food.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .project-card h3 {
     margin: 16px 16px 8px 16px;
@@ -656,244 +646,70 @@ body.dark-mode .projects-slider {
 
 /* Media queries untuk tampilan gambar yang lebih baik pada mobile */
 @media (max-width: 768px) {
-    /* Optimasi gambar untuk mobile */
-    img {
-        image-rendering: -webkit-optimize-contrast !important; /* Untuk Chrome */
-        image-rendering: crisp-edges !important; /* Standar */
-    }
-    
-    /* Perbaikan tampilan gambar */
     .project-card img, .menu-image {
-        height: auto !important;
-        max-height: 240px !important;
-        min-height: 220px !important;
-        object-fit: cover !important; /* Changed to cover for AI images to look better */
-        object-position: center 30% !important; /* Focus more on top portion of food/beverages */
-        background-color: #f0f2f5 !important; /* Slightly darker background */
-        padding: 4px !important; /* Reduced padding for more image space */
-        border-radius: 12px 12px 0 0 !important;
-        margin: 0 auto !important;
+        height: 150px !important;
+        object-fit: cover !important;
         display: block !important;
-        margin-bottom: 6px !important;
-        transition: transform 0.3s ease, filter 0.3s ease;
-        filter: contrast(1.05) saturate(1.1) brightness(1.02) !important; /* Enhance AI images */
+        width: 100% !important;
     }
     
-    /* Transisi halus saat hover */
-    .project-card img:hover, .menu-image:hover {
-        transform: scale(1.02);
-    }
-    
-    /* Khusus untuk gambar AI yang memerlukan penyesuaian lebih */
-    .ai-image {
-        filter: contrast(1.08) saturate(1.15) brightness(1.03) !important;
-        object-position: center 25% !important; /* Focus on top portion where food/drink details are */
-        transition: all 0.3s ease !important;
-    }
-    
-    .ai-image:hover {
-        filter: contrast(1.12) saturate(1.2) brightness(1.05) !important;
-    }
-    
-    /* Override style untuk gambar inline */
-    img[style*="height:150px"] {
-        height: auto !important;
-        min-height: 220px !important;
-        max-height: 240px !important;
-        object-fit: contain !important;
-        padding: 6px !important;
-    }
-    
-    /* Layout Card yang lebih baik */
     .project-card {
-        width: 90% !important;
-        min-width: 280px;
-        max-width: 320px;
-        margin: 0 auto 20px !important;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1) !important;
-        border-radius: 12px !important;
-        background-color: #fff !important;
-        padding-bottom: 12px !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-    
-    /* Optimasi untuk gambar khusus */
-    .project-card img[src*="beverages/"],
-    .project-card img[src*="food/"],
-    .project-card img[src*="bakery/"] {
-        object-position: center center !important;
+        min-width: 270px;
+        max-width: 300px;
     }
 }
-    
-    /* Perbaiki spacing untuk mobile */
-    .project-card h3,
-    .project-card h4 {
-        font-size: 1.1rem;
-        margin: 12px 12px 6px 12px;
-    }
-    
-    .project-card p {
-        margin: 0 12px 12px 12px;
-        font-size: 0.9rem;
-        line-height: 1.4;
-    }
-
 
 @media (max-width: 480px) {
     .project-card img, .menu-image {
-        max-height: 220px !important;
-        min-height: 200px !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-    
-    .project-card {
-        min-width: 260px !important;
-        max-width: 85% !important;
-        margin: 0 6px;
-    }
-    
-    .projects-section h2 {
-        font-size: 1.4rem !important;
-    }
-
-    .projects-section h3 {
-        font-size: 1.2rem !important;
-    }}
-    
-    /* Optimasi konten untuk layar kecil */
-    .project-card h3,
-    .project-card h4 {
-        font-size: 1rem;
-        margin: 10px 10px 5px 10px;
-    }
-    
-    .project-card p {
-        margin: 0 10px 10px 10px;
-        font-size: 0.85rem;
-        line-height: 1.3;
-    }
-    
-    .project-card .btn {
-        width: 85%;
-        font-size: 1rem;
-        padding: 8px 0;
-    }
-  
-
-@media (max-width: 360px) {
-    .project-card img, .menu-image {
-        height: 160px !important;
-        object-fit: cover !important;
-        object-position: center !important;
-    }
-    
-    .project-card {
-        min-width: 240px;
-        max-width: 280px;
-        margin: 0 4px;
-    }
-    
-    /* Kompak untuk layar sangat kecil */
-    .project-card h3,
-    .project-card h4 {
-        font-size: 0.95rem;
-        margin: 8px 8px 4px 8px;
-    }
-    
-    .project-card p {
-        margin: 0 8px 8px 8px;
-        font-size: 0.8rem;
-        line-height: 1.2;
-    }
-    
-    .project-card .btn {
-        width: 90%;
-        font-size: 0.9rem;
-        padding: 7px 0;
-    }
-}
-
-/* Media query khusus untuk iPhone dan perangkat mobile landscape */
-@media (max-width: 480px) and (orientation: landscape) {
-    .project-card img, .menu-image {
         height: 140px !important;
         object-fit: cover !important;
-        object-position: center !important;
+        display: block !important;
+        width: 100% !important;
     }
     
     .project-card {
-        min-width: 220px;
-        max-width: 260px;
+        min-width: 250px;
+        max-width: 280px;
     }
 }
 
-/* Media query untuk perangkat dengan pixel density tinggi (Retina) */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .project-card img, .menu-image {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
-    }
-}
-
-/* Styling khusus untuk touch devices */
-@media (hover: none) and (pointer: coarse) {
-    .project-card:hover img,
-    .project-card:hover .menu-image {
-        transform: none; /* Nonaktifkan hover effect di touch devices */
-    }
-    
-    .project-card {
-        transition: transform 0.2s ease;
-    }
-    
-    .project-card:active {
-        transform: scale(0.98);
-    }
-}
-
-/* CSS tambahan untuk menangani gambar menu dengan berbagai aspek rasio */
-@media (max-width: 768px) {
-    /* Container gambar dengan aspect ratio yang fleksibel */
-    .project-card {
-        overflow: hidden;
-    }
-    
-    .project-card img,
-    .menu-image {
-        transition: all 0.3s ease !important;
-        border-radius: 12px 12px 0 0 !important;
-    }
-    
-    /* Penanganan khusus untuk gambar dengan aspect ratio berbeda */
-    .project-card img[src*="beverages/"],
-    .project-card img[src*="food/"],
-    .project-card img[src*="bakery/"] {
-        object-fit: cover !important;
-    }
-    
-    /* Fallback untuk gambar dengan nama khusus */
-    .project-card img[alt*="Menu Preview"] {
-        object-fit: cover !important;
-    }
-}
-
-/* Penanganan khusus untuk mobile portrait yang sangat kecil */
 @media (max-width: 360px) {
     .project-card img, .menu-image {
-        height: 160px !important;
+        height: 120px !important;
         object-fit: cover !important;
-        object-position: center !important;
-    }
-    
-    .project-card {
-        min-width: 240px;
-        max-width: 280px;
-        margin: 0 4px;
+        display: block !important;
+        width: 100% !important;
     }
 }
 
+/* Perbaikan khusus untuk loading gambar di mobile */
+@media (max-width: 768px) {
+    img {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    
+    .project-card img, .menu-image {
+        image-rendering: auto;
+        -webkit-image-rendering: auto;
+        -moz-image-rendering: auto;
+    }
+    
+    /* Force image visibility on mobile */
+    .project-card img[src] {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    /* Preload and cache images */
+    .project-card img {
+        will-change: transform;
+        contain: layout style paint;
+    }
+}
 .contact-section a {
     color: #e11d48;
     text-decoration: none;
