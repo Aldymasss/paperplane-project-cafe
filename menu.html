@@ -35,6 +35,22 @@
             background: none !important;
             position: static !important;
         }
+        
+        /* Styling untuk tombol Add to Cart */
+        .btn.add-to-cart {
+            display: block;
+            margin-top: 8px;
+            background-color: #5C694B;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .btn.add-to-cart:hover {
+            background-color: #4a5639;
+        }
     </style>    <script src="search.js" defer></script>
     <script src="menu-scroll.js" defer></script>
     <script src="touch-scroll.js" defer></script>
@@ -511,40 +527,61 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         return;
       }
 
-      // 7. Cari "wadah" menu Anda di HTML
-      //    PASTIKAN Anda punya <div id="menu-container"> di HTML Anda
-      const menuContainer = document.getElementById('menu-container'); 
-      menuContainer.innerHTML = ''; // Kosongkan wadah
-
-      // 8. Loop setiap dokumen (item menu) dari database
+      // Mengorganisir menu berdasarkan kategori
+      const menuByCategory = {};
+      
+      // 7. Mengelompokkan menu berdasarkan kategori
       snapshot.forEach(doc => {
-        const item = doc.data(); // Ini adalah data (nama, harga, gambarURL)
+        const item = doc.data();
+        const kategori = item.kategori || 'Uncategorized';
+        
+        if (!menuByCategory[kategori]) {
+          menuByCategory[kategori] = [];
+        }
+        
+        menuByCategory[kategori].push({
+          id: doc.id,
+          ...item
+        });
         
         // Cek di console apakah data masuk
-        console.log(doc.id, " => ", item); 
-        
-        // 9. Buat HTML untuk setiap item menu
-        //    PENTING: Anda HARUS menyesuaikan HTML di bawah ini
-        //    agar SAMA PERSIS dengan desain card menu Anda di HTML statis
-        const menuHTML = `
-          <div class="col-md-4 menu-item"> 
-            <div class="card shadow-sm">
-              <img src="${item.gambarURL}" class="card-img-top" alt="${item.nama}">
-              <div class="card-body">
-                <h5 class="card-title">${item.nama}</h5>
-                <p class="card-text">Rp ${item.harga.toLocaleString('id-ID')}</p>
-                
-                <button class="btn btn-primary" onclick="addToCart('${doc.id}', '${item.nama}', ${item.harga})">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        // 10. Masukkan HTML yang baru dibuat ke dalam wadah
-        menuContainer.innerHTML += menuHTML;
+        console.log(doc.id, " => ", item);
       });
+      
+      // 8. Struktur HTML asli dipertahankan
+      // TIDAK mengganti semua HTML, tapi mengisi recommendations-container
+      const recommendationsContainer = document.getElementById('recommendations-container');
+      
+      // Menampilkan Recommendations (6 item teratas)
+      const allItems = Object.values(menuByCategory).flat();
+      const recommendations = allItems.slice(0, 6); // Ambil 6 item pertama sebagai rekomendasi
+      
+      // Bersihkan container rekomendasi
+      if (recommendationsContainer) {
+        recommendationsContainer.innerHTML = '';
+        
+        // Tambahkan semua rekomendasi
+        recommendations.forEach(item => {
+          const menuHTML = `
+            <div class="project-card">
+              <img src="${item.gambarURL || 'img/food.jpg'}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
+              <h4>${item.nama}</h4>
+              <p>${item.deskripsi || ''}</p>
+              <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
+              <button class="btn add-to-cart" onclick="addToCart('${item.id}', '${item.nama}', ${item.harga})">
+                Add to Cart
+              </button>
+            </div>
+          `;
+          
+          recommendationsContainer.innerHTML += menuHTML;
+        });
+      }
+      
+      // 9. Re-initialize sliders after adding content
+      setTimeout(() => {
+        createSectionSliderById('slider-recommendations');
+      }, 300);
 
     } catch (error) {
       console.error("Error mengambil menu: ", error);
