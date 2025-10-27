@@ -286,8 +286,10 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
                 
                 // Error handling untuk gambar yang gagal load
                 img.onerror = function() {
+                    console.warn('Failed to load image:', this.getAttribute('data-original-src') || this.src);
                     this.src = 'img/food.jpg'; // Fallback image
                     this.style.objectFit = 'cover';
+                    this.style.opacity = '0.7'; // Slightly transparent to indicate fallback
                 };
                 
                 // Pastikan gambar terlihat di mobile
@@ -413,9 +415,12 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         
         const grid = document.getElementById(`grid-${categoryId}`);
         items.forEach(item => {
+          // Log untuk debugging gambar
+          console.log(`Loading ${category}: ${item.nama} - ${item.gambarURL}`);
+          
           const cardHTML = `
             <div class="project-card">
-              <img src="${item.gambarURL}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
+              <img src="${item.gambarURL}" alt="${item.nama}" data-original-src="${item.gambarURL}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
               <h4>${item.nama}</h4>
               <p>${item.deskripsi || ''}</p>
               <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
@@ -467,9 +472,12 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         
         const grid = document.getElementById(`grid-${categoryId}`);
         items.forEach(item => {
+          // Log untuk debugging gambar food
+          console.log(`Loading ${category}: ${item.nama} - ${item.gambarURL}`);
+          
           const cardHTML = `
             <div class="project-card">
-              <img src="${item.gambarURL}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
+              <img src="${item.gambarURL}" alt="${item.nama}" data-original-src="${item.gambarURL}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
               <h4>${item.nama}</h4>
               <p>${item.deskripsi || ''}</p>
               <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
