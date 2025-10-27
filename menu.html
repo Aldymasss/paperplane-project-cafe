@@ -231,11 +231,13 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
   });
 });
     </script>
-      <!-- About Section -->
-       <div class="container">
-          <div class="row" id="menu-container">
+    
+    <!-- Menu Container - Will be populated by Firebase -->
+    <div class="row" id="menu-container">
+        <!-- Firebase will populate menu sections here -->
     </div>
-  </div>
+    
+    <!-- About Section -->
     <section id="about" class="about-section">
         <h2 style="text-align:center;color:#5C694B;">About Us</h2>
         <div class="about-card-section">
@@ -335,7 +337,7 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // 5. Fungsi untuk mengambil data menu saat halaman dimuat
+  // 5. Fungsi untuk mengambil data menu saat halaman dimuat dengan styling ASLI
   window.onload = async function() {
     try {
       console.log("Mengambil menu dari Firestore...");
@@ -347,50 +349,87 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         return;
       }
 
-      // 6. Cari "wadah" menu Anda di HTML
+      // 6. Kelompokkan menu berdasarkan kategori - HANYA KATEGORI FOOD
+      const foodCategories = ['Roti Panggang', 'Bakery', 'Gak Bikin Kenyang', 'Nasi', 'Tanpa Nasi', 'Mie', 'Tambahan'];
+      const menuByCategory = {};
+      
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        const category = item.kategori || 'Lainnya';
+        
+        // Hanya ambil kategori yang ada di foodCategories
+        if (foodCategories.includes(category)) {
+          if (!menuByCategory[category]) {
+            menuByCategory[category] = [];
+          }
+          menuByCategory[category].push({id: doc.id, ...item});
+        }
+      });
+
+      // 7. Cari wadah menu container
       const menuContainer = document.getElementById('menu-container'); 
       if (!menuContainer) {
           console.error('ERROR: Wadah <div id="menu-container"> tidak ditemukan!');
           return;
       }
-      menuContainer.innerHTML = ''; // Kosongkan wadah
 
-      // 7. Loop setiap dokumen (item menu) dari database
-      snapshot.forEach(doc => {
-        const item = doc.data(); 
+      // 8. Buat section untuk setiap kategori dengan styling ASLI (urutan yang benar)
+      foodCategories.forEach(category => {
+        if (!menuByCategory[category]) return; // Skip jika kategori tidak ada data
         
-        // 8. Buat HTML yang RAPI (dengan class Bootstrap)
-        //    INI AKAN MEMPERBAIKI TAMPILAN ANDA
-        const menuHTML = `
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <img src="${item.gambarURL}" class="card-img-top" alt="${item.nama}" style="height: 200px; object-fit: cover;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">${item.nama}</h5>
-                <p class="card-text">Rp ${item.harga.toLocaleString('id-ID')}</p>
-                
-                <button class="btn btn-primary mt-auto" onclick="addToCart('${doc.id}', '${item.nama}', ${item.harga})">
-                  Add to Cart
-                </button>
+        const items = menuByCategory[category];
+        const categoryId = category.toLowerCase().replace(/\s+/g, '-');
+        
+        // Buat section untuk kategori ini
+        const sectionHTML = `
+          <section id="${categoryId}" class="projects-section">
+            <h3 style="text-align:center;margin:20px 0 20px;color:#5C694B;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:1.5rem;">
+              ${category}
+            </h3>
+            <div class="projects-slider" id="slider-${categoryId}">
+              <button class="slider-btn prev" aria-label="Sebelumnya"><i class="fa fa-chevron-left"></i></button>
+              <div class="projects-grid" id="grid-${categoryId}">
               </div>
+              <button class="slider-btn next" aria-label="Berikutnya"><i class="fa fa-chevron-right"></i></button>
             </div>
-          </div>
+          </section>
         `;
         
-        // 9. Masukkan HTML yang baru dibuat ke dalam wadah
-        menuContainer.innerHTML += menuHTML;
+        menuContainer.innerHTML += sectionHTML;
+        
+        // Tambahkan kartu menu ke grid
+        const grid = document.getElementById(`grid-${categoryId}`);
+        items.forEach(item => {
+          const cardHTML = `
+            <div class="project-card">
+              <img src="${item.gambarURL}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
+              <h4>${item.nama}</h4>
+              <p>${item.deskripsi || ''}</p>
+              <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
+            </div>
+          `;
+          grid.innerHTML += cardHTML;
+        });
+        
+        // Inisialisasi slider untuk kategori ini
+        setTimeout(() => {
+          if (typeof createSectionSliderById === 'function') {
+            createSectionSliderById(`slider-${categoryId}`);
+          }
+        }, 100);
       });
+
+      // Jalankan fungsi perbaikan gambar mobile jika ada
+      setTimeout(() => {
+        if (typeof fixMobileImages === 'function') {
+          fixMobileImages();
+        }
+      }, 200);
 
     } catch (error) {
       console.error("Error mengambil menu: ", error);
     }
   };
-
-  // 10. Fungsi untuk tombol "Add to Cart" (LANGKAH SELANJUTNYA)
-  function addToCart(id, nama, harga) {
-    console.log(`Menambahkan ke keranjang: ${nama} (ID: ${id}) dengan harga ${harga}`);
-    // TODO: Logika keranjang belanja Anda akan ada di sini
-  }
 </script>
 </body>
 </html>
