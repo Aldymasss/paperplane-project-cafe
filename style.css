@@ -557,6 +557,16 @@ body.dark-mode .projects-slider {
   .projects-slider .project-card {
     min-width: 85vw;
     max-width: 95vw;
+    margin: 0 8px;
+  }
+  
+  /* Full image display on mobile slider */
+  .projects-slider .project-card img {
+    height: 220px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    background-color: #f8f9fa !important;
+    padding: 10px !important;
   }
 }
 .project-card {
@@ -589,6 +599,22 @@ body.dark-mode .projects-slider {
     max-width: 100%;
 }
 
+/* Desktop: use cover for cropped look */
+@media (min-width: 769px) {
+    .project-card img {
+        object-fit: cover;
+    }
+}
+
+/* Mobile: use contain to show full image */
+@media (max-width: 768px) {
+    .project-card img {
+        object-fit: contain !important;
+        object-position: center !important;
+        padding: 8px;
+    }
+}
+
 /* Styling khusus untuk gambar menu */
 .menu-image {
     width: 100% !important;
@@ -607,6 +633,34 @@ body.dark-mode .projects-slider {
     border-radius: 12px 12px 0 0 !important;
     object-fit: cover !important;
     display: block !important;
+}
+
+/* Mobile override for inline styles */
+@media (max-width: 768px) {
+    .project-card img[style],
+    .project-card img[data-original-src] {
+        object-fit: contain !important;
+        object-position: center !important;
+        background-color: #f8f9fa !important;
+        padding: 8px !important;
+        height: 200px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-card img[style],
+    .project-card img[data-original-src] {
+        height: 180px !important;
+        padding: 8px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .project-card img[style],
+    .project-card img[data-original-src] {
+        height: 160px !important;
+        padding: 6px !important;
+    }
 }
 
 /* Fallback untuk gambar yang gagal load */
@@ -647,38 +701,47 @@ body.dark-mode .projects-slider {
 /* Media queries untuk tampilan gambar yang lebih baik pada mobile */
 @media (max-width: 768px) {
     .project-card img, .menu-image {
-        height: 150px !important;
-        object-fit: cover !important;
+        height: 200px !important;
+        object-fit: contain !important; /* Changed from cover to contain */
+        object-position: center !important;
+        background-color: #f8f9fa !important;
         display: block !important;
         width: 100% !important;
+        padding: 8px;
     }
     
     .project-card {
-        min-width: 270px;
-        max-width: 300px;
+        min-width: 280px;
+        max-width: 320px;
     }
 }
 
 @media (max-width: 480px) {
     .project-card img, .menu-image {
-        height: 140px !important;
-        object-fit: cover !important;
+        height: 180px !important;
+        object-fit: contain !important; /* Changed from cover to contain */
+        object-position: center !important;
+        background-color: #f8f9fa !important;
         display: block !important;
         width: 100% !important;
+        padding: 8px;
     }
     
     .project-card {
-        min-width: 250px;
-        max-width: 280px;
+        min-width: 260px;
+        max-width: 300px;
     }
 }
 
 @media (max-width: 360px) {
     .project-card img, .menu-image {
-        height: 120px !important;
-        object-fit: cover !important;
+        height: 160px !important;
+        object-fit: contain !important; /* Changed from cover to contain */
+        object-position: center !important;
+        background-color: #f8f9fa !important;
         display: block !important;
         width: 100% !important;
+        padding: 6px;
     }
 }
 
