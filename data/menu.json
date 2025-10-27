@@ -15,13 +15,13 @@
     "nama": "Mie Ayam Asin",
     "harga": 25000,
     "kategori": "Recommendations",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Mie ayam asin.jpeg"
   },
   {
     "nama": "Kopi Soesoe",
     "harga": 20000,
     "kategori": "Recommendations",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/soesoe.png"
   },
   {
     "nama": "Matcha Shakes",
@@ -29,43 +29,41 @@
     "kategori": "Recommendations",
     "gambarURL": "img/beverages/MATCHA.jpeg"
   },
-
   {
     "nama": "ESPRESSO",
     "harga": 20000,
     "kategori": "Hot",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/hot.jpg"
   },
   {
     "nama": "AMERICANO",
     "harga": 20000,
     "kategori": "Hot",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/amer.jpg"
   },
   {
     "nama": "CAPPUCCINO",
     "harga": 25000,
     "kategori": "Hot",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/cafe.png"
   },
   {
     "nama": "TEA",
     "harga": 18000,
     "kategori": "Hot",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/hot.jpg"
   },
   {
     "nama": "SOE SOE COKLAT",
     "harga": 22000,
     "kategori": "Hot",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/soesoe.png"
   },
-
   {
     "nama": "JASMINE TEA",
     "harga": 18000,
     "kategori": "Iced Tea",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/jasmine.jpg"
   },
   {
     "nama": "APPLE TEA",
@@ -77,26 +75,25 @@
     "nama": "LEMON TEA",
     "harga": 22000,
     "kategori": "Iced Tea",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/lemon.png"
   },
   {
     "nama": "LYCHEE TEA",
     "harga": 25000,
     "kategori": "Iced Tea",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/leci.png"
   },
-
   {
     "nama": "AMERICANO (Iced)",
     "harga": 18000,
     "kategori": "Iced Coffee",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/amer.jpg"
   },
   {
     "nama": "KOPI SOE SOE (Iced)",
     "harga": 20000,
     "kategori": "Iced Coffee",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/soesoe.png"
   },
   {
     "nama": "KOPI SUSU GULA AREN",
@@ -108,26 +105,25 @@
     "nama": "CAFFE LATTE",
     "harga": 20000,
     "kategori": "Iced Coffee",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/cafe.png"
   },
   {
     "nama": "BISCOFF SALTED CARAMEL",
     "harga": 28000,
     "kategori": "Iced Coffee",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/biscoff salted.png"
   },
-
   {
     "nama": "MILO",
     "harga": 22000,
     "kategori": "Shakes",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/milo.png"
   },
   {
     "nama": "OREO",
     "harga": 25000,
     "kategori": "Shakes",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/oreo.png"
   },
   {
     "nama": "TARO",
@@ -145,21 +141,20 @@
     "nama": "MOKA (Shake)",
     "harga": 26000,
     "kategori": "Shakes",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/moca.png"
   },
   {
     "nama": "ES COKLAT",
     "harga": 20000,
     "kategori": "Shakes",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "BISCOFF",
     "harga": 28000,
     "kategori": "Shakes",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/biscoff sh.png"
   },
-
   {
     "nama": "ROSELLA ANANAS",
     "harga": 23000,
@@ -182,7 +177,7 @@
     "nama": "MAGIC RED",
     "harga": 23000,
     "kategori": "Mocktail",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/magic.jpg"
   },
   {
     "nama": "SODA GEMBIRA",
@@ -190,100 +185,96 @@
     "kategori": "Mocktail",
     "gambarURL": "img/beverages/SODA GEMBIRA.jpeg"
   },
-
   {
     "nama": "CHOCOLATE (Ice Cream)",
     "harga": 35000,
     "kategori": "Ice Cream",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "RUM RAISIN",
     "harga": 35000,
     "kategori": "Ice Cream",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "VANILLA (Ice Cream)",
     "harga": 35000,
     "kategori": "Ice Cream",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "STMJ",
     "harga": 35000,
     "kategori": "Ice Cream",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "MOKA (Ice Cream)",
     "harga": 35000,
     "kategori": "Ice Cream",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/moca.png"
   },
-
   {
     "nama": "MINERAL WATER",
     "harga": 10000,
     "kategori": "Others",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/pristine.jpg"
   },
   {
     "nama": "TONIC WATER",
     "harga": 15000,
     "kategori": "Others",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/tonic.jpg"
   },
   {
     "nama": "SODA WATER",
     "harga": 10000,
     "kategori": "Others",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/soda.webp"
   },
   {
     "nama": "COLA",
     "harga": 12000,
     "kategori": "Others",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/cola.webp"
   },
-
   {
     "nama": "AMERICANO (Bottle 1000ml)",
     "harga": 55000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/bottle.jpg"
   },
   {
     "nama": "KOPI SOE SOE (Bottle 1000ml)",
     "harga": 55000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/bottle.jpg"
   },
   {
     "nama": "KOPI SUSU GULA AREN (Bottle 1000ml)",
     "harga": 55000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/bottle.jpg"
   },
   {
     "nama": "CAFE LATTE (Bottle 1000ml)",
     "harga": 80000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/bottle.jpg"
   },
   {
     "nama": "ES CHOCOLATE CLASSIC",
     "harga": 40000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/chocolate.png"
   },
   {
     "nama": "MILO (Bottle 1000ml)",
     "harga": 60000,
     "kategori": "Bottle 1000ml",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/beverages/bottle.jpg"
   },
-
   {
     "nama": "KAYA BUTTER",
     "harga": 22000,
@@ -336,20 +327,19 @@
     "nama": "ICE CREAM TOAST",
     "harga": 32000,
     "kategori": "Roti Panggang",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/ice toas.png"
   },
-
   {
     "nama": "BRIOCHE TOAST WHOLE",
     "harga": 30000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Brioch toast tiramisu.jpeg"
   },
   {
     "nama": "SOUR DOUGH WHOLE",
     "harga": 50000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Sour dough egg mayo.jpeg"
   },
   {
     "nama": "CINNAMON ROLL VANILLA",
@@ -361,19 +351,19 @@
     "nama": "BREAD+",
     "harga": 15000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Brioch toast tiramisu.jpeg"
   },
   {
     "nama": "CHEESE BUN",
     "harga": 15000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Cheese butter.jpeg"
   },
   {
     "nama": "PISANG KLASIK",
     "harga": 18000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Pisang goreng pak cik.jpeg"
   },
   {
     "nama": "BRATWURST HORN",
@@ -385,7 +375,7 @@
     "nama": "CROISSANT & DANISH",
     "harga": 15000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Brioch toast tiramisu.jpeg"
   },
   {
     "nama": "PLAIN CROISSANT",
@@ -397,15 +387,14 @@
     "nama": "KOUIGN AMANN",
     "harga": 18000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Brioch toast tiramisu.jpeg"
   },
   {
     "nama": "NUTELLA DANISH",
     "harga": 18000,
     "kategori": "Bakery",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/Nutella.jpeg"
   },
-
   {
     "nama": "MENDOAN",
     "harga": 12000,
@@ -428,7 +417,7 @@
     "nama": "PENTOL AJA",
     "harga": 20000,
     "kategori": "Gak Bikin Kenyang",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/PENTOL.jpeg"
   },
   {
     "nama": "PISANG GORENG PAK CIK",
@@ -440,7 +429,7 @@
     "nama": "FRENCH FRIES",
     "harga": 20000,
     "kategori": "Gak Bikin Kenyang",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/french-fries-min-1024x1024.jpg"
   },
   {
     "nama": "SIOMAY PAPERPLANE",
@@ -452,9 +441,8 @@
     "nama": "P4 PLATTER",
     "harga": 40000,
     "kategori": "Gak Bikin Kenyang",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/p4.HEIC"
   },
-
   {
     "nama": "CLAYPOT SMOOR SAPI",
     "harga": 28000,
@@ -477,9 +465,8 @@
     "nama": "NASI CHICKEN SALTED EGG",
     "harga": 35000,
     "kategori": "Nasi",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/salted egg.jpg"
   },
-
   {
     "nama": "CHICKEN CREAMY MUSHROOM (Tanpa Nasi)",
     "harga": 35000,
@@ -498,72 +485,70 @@
     "kategori": "Tanpa Nasi",
     "gambarURL": "img/food/Sour dough egg mayo.jpeg"
   },
-
   {
     "nama": "MIE AYAM SPESIAL",
     "harga": 25000,
     "kategori": "Mie",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/mi ayam.jpg"
   },
   {
     "nama": "MIE GORENG TELUR",
     "harga": 22000,
     "kategori": "Mie",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/mi ayam.jpg"
   },
   {
     "nama": "BAKMI GORENG SEAFOOD",
     "harga": 32000,
     "kategori": "Mie",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/mi ayam.jpg"
   },
   {
     "nama": "MIE KUAH",
     "harga": 20000,
     "kategori": "Mie",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/mi ayam.jpg"
   },
-
   {
     "nama": "SAMBAL",
     "harga": 5000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/smoor.jpg"
   },
   {
     "nama": "SAMBAL MATAH",
     "harga": 5000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/matah.jpg"
   },
   {
     "nama": "SAMBAL TEMPONG",
     "harga": 5000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/smoor.jpg"
   },
   {
     "nama": "SAMBAL TERASI",
     "harga": 5000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/smoor.jpg"
   },
   {
     "nama": "KERING TEMPE KACANG",
     "harga": 8000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/daun jeruk.png"
   },
   {
     "nama": "TELUR CEPLOK MATA SAPI",
     "harga": 8000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/ceplok.jpg"
   },
   {
     "nama": "TELUR DADAR",
     "harga": 8000,
     "kategori": "Tambahan",
-    "gambarURL": "img/food.jpg"
+    "gambarURL": "img/food/dadar.jpg"
   }
 ]
