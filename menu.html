@@ -349,16 +349,18 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         return;
       }
 
-      // 6. Kelompokkan menu berdasarkan kategori - HANYA KATEGORI FOOD
+      // 6. Kelompokkan menu berdasarkan kategori - BEVERAGES DAN FOOD
+      const beveragesCategories = ['Hot', 'Iced Tea', 'Iced Coffee', 'Shakes', 'Mocktail', 'Ice Cream', 'Others', 'Bottle 1000ml'];
       const foodCategories = ['Roti Panggang', 'Bakery', 'Gak Bikin Kenyang', 'Nasi', 'Tanpa Nasi', 'Mie', 'Tambahan'];
+      const allCategories = [...beveragesCategories, ...foodCategories];
       const menuByCategory = {};
       
       snapshot.forEach(doc => {
         const item = doc.data();
         const category = item.kategori || 'Lainnya';
         
-        // Hanya ambil kategori yang ada di foodCategories
-        if (foodCategories.includes(category)) {
+        // Ambil kategori beverages dan food
+        if (allCategories.includes(category)) {
           if (!menuByCategory[category]) {
             menuByCategory[category] = [];
           }
@@ -373,14 +375,26 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
           return;
       }
 
-      // 8. Buat section untuk setiap kategori dengan styling ASLI (urutan yang benar)
-      foodCategories.forEach(category => {
-        if (!menuByCategory[category]) return; // Skip jika kategori tidak ada data
+      // 8. Buat section untuk setiap kategori dengan styling ASLI (beverages dulu, baru food)
+      
+      // Render BEVERAGES sections
+      if (Object.keys(menuByCategory).some(cat => beveragesCategories.includes(cat))) {
+        const beveragesHeader = `
+          <section id="beverages" class="projects-section">
+            <h2 style="text-align:center;margin:40px 0 30px;color:#5C694B;font-weight:bold;text-transform:uppercase;letter-spacing:2px;font-size:2rem;">
+              Beverages
+            </h2>
+          </section>
+        `;
+        menuContainer.innerHTML += beveragesHeader;
+      }
+      
+      beveragesCategories.forEach(category => {
+        if (!menuByCategory[category]) return;
         
         const items = menuByCategory[category];
-        const categoryId = category.toLowerCase().replace(/\s+/g, '-');
+        const categoryId = 'beverages-' + category.toLowerCase().replace(/\s+/g, '');
         
-        // Buat section untuk kategori ini
         const sectionHTML = `
           <section id="${categoryId}" class="projects-section">
             <h3 style="text-align:center;margin:20px 0 20px;color:#5C694B;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:1.5rem;">
@@ -397,7 +411,6 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
         
         menuContainer.innerHTML += sectionHTML;
         
-        // Tambahkan kartu menu ke grid
         const grid = document.getElementById(`grid-${categoryId}`);
         items.forEach(item => {
           const cardHTML = `
@@ -411,7 +424,60 @@ document.querySelectorAll('.nav-list a[href^="#"]').forEach(link => {
           grid.innerHTML += cardHTML;
         });
         
-        // Inisialisasi slider untuk kategori ini
+        setTimeout(() => {
+          if (typeof createSectionSliderById === 'function') {
+            createSectionSliderById(`slider-${categoryId}`);
+          }
+        }, 100);
+      });
+      
+      // Render FOOD sections
+      if (Object.keys(menuByCategory).some(cat => foodCategories.includes(cat))) {
+        const foodHeader = `
+          <section id="food" class="projects-section">
+            <h2 style="text-align:center;margin:40px 0 30px;color:#5C694B;font-weight:bold;text-transform:uppercase;letter-spacing:2px;font-size:2rem;">
+              Food
+            </h2>
+          </section>
+        `;
+        menuContainer.innerHTML += foodHeader;
+      }
+      
+      foodCategories.forEach(category => {
+        if (!menuByCategory[category]) return;
+        
+        const items = menuByCategory[category];
+        const categoryId = category.toLowerCase().replace(/\s+/g, '-');
+        
+        const sectionHTML = `
+          <section id="${categoryId}" class="projects-section">
+            <h3 style="text-align:center;margin:20px 0 20px;color:#5C694B;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:1.5rem;">
+              ${category}
+            </h3>
+            <div class="projects-slider" id="slider-${categoryId}">
+              <button class="slider-btn prev" aria-label="Sebelumnya"><i class="fa fa-chevron-left"></i></button>
+              <div class="projects-grid" id="grid-${categoryId}">
+              </div>
+              <button class="slider-btn next" aria-label="Berikutnya"><i class="fa fa-chevron-right"></i></button>
+            </div>
+          </section>
+        `;
+        
+        menuContainer.innerHTML += sectionHTML;
+        
+        const grid = document.getElementById(`grid-${categoryId}`);
+        items.forEach(item => {
+          const cardHTML = `
+            <div class="project-card">
+              <img src="${item.gambarURL}" alt="${item.nama}" style="width:100%;border-radius:12px 12px 0 0;height:150px;object-fit:cover;">
+              <h4>${item.nama}</h4>
+              <p>${item.deskripsi || ''}</p>
+              <span class="btn">Rp ${item.harga.toLocaleString('id-ID')}</span>
+            </div>
+          `;
+          grid.innerHTML += cardHTML;
+        });
+        
         setTimeout(() => {
           if (typeof createSectionSliderById === 'function') {
             createSectionSliderById(`slider-${categoryId}`);
